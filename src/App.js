@@ -8,7 +8,7 @@ function App() {
   const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
 
-  function createPost( ) {
+  function createPost() {
     const post = {
       title: 'Finish Firebase Practice',
       description: 'This is the description of my first post.',
@@ -24,7 +24,7 @@ function App() {
   }
 
   async function getPostById(id) {
-    const hardCodedId = 'HDhAJBDI9ODoPlsuL5jY'; 
+    const hardCodedId = "HDhAJBDI9ODoPlsuL5jY"; 
     const postRef = doc(db, 'posts', hardCodedId);
     const postSnap = await getDoc(postRef);
     const post = postSnap.data();
