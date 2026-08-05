@@ -1,11 +1,20 @@
 import React from 'react';
 import './App.css';
-import { auth } from './firebase/init.js';
+import { auth, db } from './firebase/init.js';
+import { collection, addDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 
 function App() {
   const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
+
+  function createPost( ) {
+    const post = {
+      title: 'My First Post',
+      description: 'This is the description of my first post.',
+    };
+    addDoc(collection(db, 'posts'), post)
+  }
 
   React.useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -52,6 +61,7 @@ function App() {
       <button onClick={login}>Login</button>
       <button onClick={logout}>Logout</button>
       {loading ? 'Loading...' : user ? <p>Welcome, {user.email}</p> : <p>Please log in.</p>}
+      <button onClick={createPost}>Create Post</button>
     </div>
   );
 }
